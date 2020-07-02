@@ -2,25 +2,67 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      movies: [],
+      error: null,
+      favoriteMovie: '',
+      releaseYear: ''
+    }
+  }
+  componentDidMount() {
+    fetch("https://reactnative.dev/movies.json")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          this.setState({
+            movies: result.movies
+          });
+        },
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      )
+  }
+  handleInputChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  addMovieToFavoriteMoviesList = () => {
+    const movieObject = {title: this.state.favoriteMovie, releaseYear: this.state.releaseYear};
+    this.setState(state => {
+      const movies = [...state.movies, movieObject];
+      return {
+        movies,
+        favoriteMovie: '',
+        releaseYear: '',
+      };
+    });
+  }
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <ul>
+            {
+            this.state.movies.map((movie, index) => (
+              <li key={index}>{movie.title}, {movie.releaseYear}</li>
+            ))}
+          </ul>
+          <div>
+            <input name='favoriteMovie' value={this.state.favoriteMovie} onChange={this.handleInputChange} placeholder='Favorite Movie' />
+            <input name='releaseYear' value={this.state.releaseYear} onChange={this.handleInputChange} placeholder='Release Year' />
+            <button onClick={this.addMovieToFavoriteMoviesList}>Add</button>
+          </div>
+          <span>{this.state.favoriteMovie}</span>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
