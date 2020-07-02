@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+//"https://reactnative.dev/movies.json"
 function App() {
   return (
     <div className="App">
