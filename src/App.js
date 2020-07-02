@@ -16,7 +16,6 @@ function App() {
   const addFavoriteMovieToList = () => {
     const movieObject = {title: favoriteMovie, releaseYear};
     const newMoviesList = [...movies, movieObject];
-    console.log(newMoviesList)
     setMovies(newMoviesList);
     setFavoriteMovie('');
     setReleaseYear('');
