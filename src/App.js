@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useFieldState } from './hooks';
 //"https://reactnative.dev/movies.json"
 function App() {
   const [movies, setMovies] = useState([]);
-  const [favoriteMovie, setFavoriteMovie] = useState('');
-  const [releaseYear, setReleaseYear] =  useState('');
-
+  const [fields, handleFieldsInput] = useFieldState({
+    favoriteMovie: '',
+    releaseYear: ''
+  });
+  const {favoriteMovie, releaseYear} = fields;
   useEffect(()=>{
     fetch("https://reactnative.dev/movies.json")
     .then(res => res.json())
@@ -36,8 +39,8 @@ function App() {
           }
         </ul>
         <div>
-          <input value={favoriteMovie} onChange={event => setFavoriteMovie(event.target.value)} placeholder='Favorite movie' />
-          <input value={releaseYear} onChange={event => setReleaseYear(event.target.value)} placeholder='Release Year' />
+          <input name='favoriteMovie' value={fields.favoriteMovie} onChange={handleFieldsInput} placeholder='Favorite movie' />
+          <input value={fields.releaseYear} name='releaseYear' onChange={handleFieldsInput} placeholder='Release Year' />
           <button onClick={addFavoriteMovieToList}>Add</button>
         </div>
       </header>
