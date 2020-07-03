@@ -13,7 +13,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
-    document.title = `New Movie: ${this.state.favoriteMovie}`
+    document.title = `Add your favorite movie`;
     fetch("https://reactnative.dev/movies.json")
       .then(res => res.json())
       .then(
@@ -29,8 +29,10 @@ class App extends React.Component {
         }
       )
   }
-  componentDidUpdate(){
-    document.title = `New Movie: ${this.state.favoriteMovie}`
+  componentDidUpdate(prevProps, prevState){
+    if(prevState.favoriteMovie !== this.state.favoriteMovie){
+      document.title = `New Movie: ${this.state.favoriteMovie}`
+    }
   }
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
