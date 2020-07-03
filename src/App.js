@@ -24,6 +24,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <code>React Hooks</code>
         <img src={logo} className="App-logo" alt="logo" />
         <ul>
           {
