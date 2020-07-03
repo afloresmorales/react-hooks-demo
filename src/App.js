@@ -13,12 +13,14 @@ function App() {
     .then(result => setMovies(result.movies))
   }, [])
 
+  useEffect(()=> {
+    document.title = `New Movie: ${favoriteMovie}`
+  },[favoriteMovie])
+
   const addFavoriteMovieToList = () => {
     const movieObject = {title: favoriteMovie, releaseYear};
     const newMoviesList = [...movies, movieObject];
     setMovies(newMoviesList);
-    setFavoriteMovie('');
-    setReleaseYear('');
   };
 
   return (
