@@ -13,6 +13,7 @@ class App extends React.Component {
     }
   }
   componentDidMount() {
+    document.title = `New Movie: ${this.state.favoriteMovie}`
     fetch("https://reactnative.dev/movies.json")
       .then(res => res.json())
       .then(
@@ -27,6 +28,9 @@ class App extends React.Component {
           });
         }
       )
+  }
+  componentDidUpdate(){
+    document.title = `New Movie: ${this.state.favoriteMovie}`
   }
   handleInputChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -46,6 +50,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <code>React Class</code>
           <img src={logo} className="App-logo" alt="logo" />
           <ul>
             {
