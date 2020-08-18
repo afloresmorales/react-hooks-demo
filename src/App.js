@@ -13,7 +13,19 @@ function App() {
   useEffect(()=>{
     fetch("https://reactnative.dev/movies.json")
     .then(res => res.json())
-    .then(result => setMovies(result.movies))
+    .then(result => {
+      const sortedMovies = result.movies.sort((a,b)=>{
+        var nameA = a.title.toUpperCase();
+        var nameB = b.title.toUpperCase();
+        if (nameA < nameB) {
+          return -1;
+        }
+        if (nameA > nameB) {
+          return 1;
+        }
+        return 0;
+      });
+      setMovies(sortedMovies)})
   }, [])
 
   useEffect(()=> {
